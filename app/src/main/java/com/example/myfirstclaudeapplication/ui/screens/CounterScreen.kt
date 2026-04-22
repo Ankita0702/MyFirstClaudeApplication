@@ -2,9 +2,11 @@ package com.example.myfirstclaudeapplication.ui.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -22,11 +24,21 @@ import com.example.myfirstclaudeapplication.viewmodel.CounterViewModel
 @Composable
 fun CounterScreen(modifier: Modifier = Modifier, viewModel: CounterViewModel = viewModel()) {
     val count by viewModel.count.collectAsStateWithLifecycle()
-    CounterContent(count = count, onIncrement = viewModel::increment, modifier = modifier)
+    CounterContent(
+        count = count,
+        onIncrement = viewModel::increment,
+        onDecrement = viewModel::decrement,
+        modifier = modifier
+    )
 }
 
 @Composable
-private fun CounterContent(count: Int, onIncrement: () -> Unit, modifier: Modifier = Modifier) {
+private fun CounterContent(
+    count: Int,
+    onIncrement: () -> Unit,
+    onDecrement: () -> Unit,
+    modifier: Modifier = Modifier
+) {
     Column(
         modifier = modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
@@ -34,8 +46,14 @@ private fun CounterContent(count: Int, onIncrement: () -> Unit, modifier: Modifi
     ) {
         Text(text = "Count: $count", style = MaterialTheme.typography.headlineMedium)
         Spacer(modifier = Modifier.height(24.dp))
-        Button(onClick = onIncrement) {
-            Text("Increment")
+        Row {
+            Button(onClick = onDecrement, enabled = count > 0) {
+                Text("-")
+            }
+            Spacer(modifier = Modifier.width(16.dp))
+            Button(onClick = onIncrement) {
+                Text("+")
+            }
         }
     }
 }
@@ -44,6 +62,6 @@ private fun CounterContent(count: Int, onIncrement: () -> Unit, modifier: Modifi
 @Composable
 private fun CounterScreenPreview() {
     MyFirstClaudeApplicationTheme {
-        CounterContent(count = 5, onIncrement = {})
+        CounterContent(count = 5, onIncrement = {}, onDecrement = {})
     }
 }

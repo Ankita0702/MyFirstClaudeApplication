@@ -71,3 +71,15 @@ This is a single-module (`:app`) Jetpack Compose application with a single-activ
 - After ANY changes to gradle files, ALWAYS run ./gradlew assembleDebug to sync and verify the build succeeds
 - If build fails after gradle changes, automatically fix errors and rebuild until successful
 - Never leave gradle changes without verifying the build works
+
+## Git Workflow
+- After every feature, stage and commit with descriptive message
+- Always check .gitignore before first commit
+- Push to origin main after every commit
+
+## Git Commit Rules
+- feat: new feature
+- fix: bug fix
+- test: adding tests
+- refactor: code cleanup
+- docs: documentation changes
