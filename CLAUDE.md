@@ -83,3 +83,16 @@ This is a single-module (`:app`) Jetpack Compose application with a single-activ
 - test: adding tests
 - refactor: code cleanup
 - docs: documentation changes
+
+## Branch Rules
+- Never commit directly to main
+- Create feature branch for every new feature
+- Branch naming: feature/feature-name, fix/bug-name
+- Always create PR for review before merging to main
+
+## Code Review Rules
+- Before every PR, scan for bugs, memory leaks and performance issues
+- Check for proper coroutine scope usage
+- Verify no business logic in Composables
+- Check for proper error handling
+

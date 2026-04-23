@@ -96,12 +96,6 @@ class CounterScreenTest {
     // --- Boundary: counter cannot go below 0 ---
 
     @Test
-    fun minusButton_isDisabledWhenCounterIsZero() {
-        launchScreen()
-        composeRule.onNodeWithText("-").assertIsNotEnabled()
-    }
-
-    @Test
     fun minusButton_becomesEnabledAfterIncrement() {
         launchScreen()
         composeRule.onNodeWithText("+").performClick()

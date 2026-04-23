@@ -1,32 +1,18 @@
 package com.example.myfirstclaudeapplication.viewmodel
 
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.StandardTestDispatcher
-import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
-import kotlinx.coroutines.test.setMain
-import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 
-@OptIn(ExperimentalCoroutinesApi::class)
 class CounterViewModelTest {
 
-    private val testDispatcher = StandardTestDispatcher()
     private lateinit var viewModel: CounterViewModel
 
     @Before
     fun setUp() {
-        Dispatchers.setMain(testDispatcher)
         viewModel = CounterViewModel()
-    }
-
-    @After
-    fun tearDown() {
-        Dispatchers.resetMain()
     }
 
     // --- Initial state ---

@@ -14,12 +14,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.myfirstclaudeapplication.ui.theme.MyFirstClaudeApplicationTheme
 import com.example.myfirstclaudeapplication.viewmodel.CounterViewModel
+
+private val ButtonSpacing = 16.dp
 
 @Composable
 fun CounterScreen(modifier: Modifier = Modifier, viewModel: CounterViewModel = viewModel()) {
@@ -47,11 +51,18 @@ private fun CounterContent(
         Text(text = "Count: $count", style = MaterialTheme.typography.headlineMedium)
         Spacer(modifier = Modifier.height(24.dp))
         Row {
-            Button(onClick = onDecrement, enabled = count > 0) {
+            Button(
+                onClick = onDecrement,
+                enabled = count > 0,
+                modifier = Modifier.semantics { contentDescription = "Decrement counter" }
+            ) {
                 Text("-")
             }
-            Spacer(modifier = Modifier.width(16.dp))
-            Button(onClick = onIncrement) {
+            Spacer(modifier = Modifier.width(ButtonSpacing))
+            Button(
+                onClick = onIncrement,
+                modifier = Modifier.semantics { contentDescription = "Increment counter" }
+            ) {
                 Text("+")
             }
         }
