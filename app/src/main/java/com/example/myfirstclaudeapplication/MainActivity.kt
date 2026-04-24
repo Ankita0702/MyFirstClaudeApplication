@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import com.example.myfirstclaudeapplication.ui.screens.CounterScreen
 import com.example.myfirstclaudeapplication.ui.theme.MyFirstClaudeApplicationTheme
 
-// Entry point of the app
+// Main entry point of android application
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
