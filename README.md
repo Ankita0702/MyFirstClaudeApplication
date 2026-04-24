@@ -27,6 +27,26 @@ To verify your Java version:
 java -version   # must be 17 or higher
 ```
 
+## Getting Started
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/Ankita0702/MyFirstClaudeApplication.git
+cd MyFirstClaudeApplication
+```
+
+### 2. Open in Android Studio
+
+- Open Android Studio
+- Select **File → Open** and choose the project directory
+- Wait for Gradle sync to complete
+
+### 3. Run the app
+
+- Connect a physical device (USB debugging enabled) or start an emulator
+- Click **Run ▶** or press `Shift + F10`
+
 ## AI Development Setup
 
 This project uses Claude Code CLI and GitHub CLI to streamline AI-assisted development.
@@ -90,26 +110,6 @@ Error: Cannot commit to main! Create a feature branch first.
 - **Use branch-first workflow** — ask Claude to create a branch before making changes; it follows the rules in `CLAUDE.md`
 - **Commit message conventions** — Claude follows the prefix conventions (`feat:`, `fix:`, `test:`, `refactor:`, `docs:`) defined in `CLAUDE.md`
 - **Iterate** — if a change isn't right, describe what's wrong and Claude will fix it
-
-## Getting Started
-
-### 1. Clone the repository
-
-```bash
-git clone https://github.com/Ankita0702/MyFirstClaudeApplication.git
-cd MyFirstClaudeApplication
-```
-
-### 2. Open in Android Studio
-
-- Open Android Studio
-- Select **File → Open** and choose the project directory
-- Wait for Gradle sync to complete
-
-### 3. Run the app
-
-- Connect a physical device (USB debugging enabled) or start an emulator
-- Click **Run ▶** or press `Shift + F10`
 
 ## Build Commands
 
