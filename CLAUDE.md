@@ -1,98 +1,84 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
-
 ## Build Commands
-
 ```bash
-# Build (debug)
-./gradlew assembleDebug
-
-# Build (release)
-./gradlew assembleRelease
-
-# Run unit tests
-./gradlew test
-
-# Run instrumented tests (requires connected device/emulator)
-./gradlew connectedAndroidTest
-
-# Lint
-./gradlew lint
-
-# Clean
-./gradlew clean
+./gradlew assembleDebug      # Build debug
+./gradlew assembleRelease    # Build release
+./gradlew test               # Unit tests
+./gradlew connectedAndroidTest # Instrumented tests
+./gradlew lint               # Lint
+./gradlew clean              # Clean
 ```
 
 ## Tech Stack
-
-- **Language:** Kotlin 2.0.21 (official code style)
-- **UI:** Jetpack Compose (BOM 2024.09.00), Material 3 with dynamic color support (Android 12+)
-- **Build:** Gradle 8.11.1 with Kotlin DSL (`.kts`), AGP 8.9.0
-- **Dependencies:** Managed via version catalog at `gradle/libs.versions.toml`
-- **Min SDK:** 24 (Android 7.0) / **Target SDK:** 35 (Android 15)
-- **JVM target:** Java 11
+- **Language:** Kotlin 2.0.21
+- **UI:** Jetpack Compose (BOM 2024.09.00), Material 3
+- **Build:** Gradle 8.11.1, Kotlin DSL, AGP 8.9.0
+- **Dependencies:** `gradle/libs.versions.toml`
+- **SDK:** Min 24 / Target 35 | **JVM:** Java 11
 
 ## Architecture
-
-This is a single-module (`:app`) Jetpack Compose application with a single-activity architecture.
-
+Single-module Jetpack Compose, single-activity.
 **Package:** `com.example.myfirstclaudeapplication`
+- `MainActivity` → entry point, edge-to-edge, Compose host
+- `ui/theme/` → Color, Theme, Type (Material 3, dark/light)
 
-- `MainActivity` — entry point; sets up edge-to-edge display and hosts the Compose UI tree
-- `ui/theme/` — `Color.kt`, `Theme.kt` (`MyFirstClaudeApplicationTheme`), `Type.kt`; Material 3 theming with automatic dark/light and dynamic color switching
+## Project Structure (as it grows)
+- `viewmodel/` → ViewModels + StateFlow
+- `ui/screens/` → Compose screens
+- `data/` → Repositories
+- `model/` → Data classes
+- Hilt for DI | Navigation Compose for routing
 
 ## Development Rules
+- Kotlin only, MVVM, ViewModel + StateFlow
+- No business logic in Composables
+- Flow over LiveData, Material 3 guidelines
+- `remember`/`mutableStateOf` for local UI state
+- `@Preview` on all Composables
+- After ANY gradle change → run assembleDebug, fix until green
 
-- Use Kotlin only, never Java
-- Follow MVVM architecture pattern
-- Use ViewModel + StateFlow for state management
-- No business logic inside Composables
-- Use Flow instead of LiveData
-- Follow Material 3 design guidelines
+## Testing Rules
+- Unit tests for every ViewModel
+- UI tests for every screen
+- All tests must pass before PR
 
-## What to Add as Project Grows
+## Git Rules - ALWAYS FOLLOW
 
-- `viewmodel/` → ViewModels with StateFlow
-- `ui/screens/` → Individual Compose screens
-- `data/` → Repositories & data sources
-- `model/` → Data classes
-- Use Hilt for dependency injection when needed
-- Use Navigation Compose for multiple screens
+### Commit Format
+feat/fix/test/refactor/docs/chore: description
 
-## Code Style
+### Branch Naming
+feature/ fix/ refactor/ test/ docs/ chore/ + name
 
-- Use `remember` and `mutableStateOf` for local UI state
-- Use `@Preview` annotations for all Composables
-- Keep Composables small and reusable
+### Strict Rules
+- NEVER commit or push directly to main
+- ALWAYS create correct branch FIRST
+- ALWAYS create PR from branch to main
+- NEVER merge to main without PR
 
-## Important Rules
+## Branch Lifecycle - MANDATORY
+### Before Every Task:
+1. git fetch origin
+2. git branch -a (check current branch)
+3. If branch already merged → git checkout main
+   → git pull origin main → git branch -d old-branch
+4. Create fresh new branch
 
-- After ANY changes to gradle files, ALWAYS run ./gradlew assembleDebug to sync and verify the build succeeds
-- If build fails after gradle changes, automatically fix errors and rebuild until successful
-- Never leave gradle changes without verifying the build works
+### During Task:
+- Same branch until PR merged
+- Same branch for CI fixes and PR review fixes
 
-## Git Workflow
-- After every feature, stage and commit with descriptive message
-- Always check .gitignore before first commit
-- Push to origin main after every commit
+### After PR Merged:
+- Delete local branch → git checkout main
+- git pull origin main → fresh branch for next task
 
-## Git Commit Rules
-- feat: new feature
-- fix: bug fix
-- test: adding tests
-- refactor: code cleanup
-- docs: documentation changes
-
-## Branch Rules
-- Never commit directly to main
-- Create feature branch for every new feature
-- Branch naming: feature/feature-name, fix/bug-name
-- Always create PR for review before merging to main
-
-## Code Review Rules
-- Before every PR, scan for bugs, memory leaks and performance issues
-- Check for proper coroutine scope usage
-- Verify no business logic in Composables
-- Check for proper error handling
-
+## Workflow - NEVER SKIP
+1. Create correct branch (refer Branch Naming)
+2. Make changes on that branch only
+3. Write tests for all new code
+4. Review: no bugs, no logic in Composables,
+   proper coroutines, error handling, tests passing
+5. Commit → Push → Create PR
+6. Fix PR review issues on same branch
+7. Merge only after all checks pass
